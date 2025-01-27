@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Gestão de produtos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -10,14 +11,35 @@
     <h:body>
         <h1>Lista de livros</h1>
         <h:form>
+            <h:commandLink value="Voltar para tela inicial" action="#{bookManager.startPage}"/>
+        </h:form>
+        <h:form>
+            <h:commandLink value="Ajuda" action="#{bookManager.help}" />
+        </h:form>
+        <br/>
+        <h:form>
             Título: <h:inputText value="#{bookManager.book.title}" /> <br/>
             Autor: <h:inputText value="#{bookManager.book.author}" /><br/>
             Assunto: <h:inputText value="#{bookManager.book.subject}" /><br/>
             <h:commandButton value="Adicionar" action="#{bookManager.add}"/>
         </h:form>
+        <h:form>
+            <h:inputText value="#{bookManager.titleSearch}" 
+                         valueChangeListener="#{bookManager.onTitleChanged}"
+                         onchange="submit()"
+                         />
+
+
+        </h:form>
         <ol>
-            <ui:repeat var="item" value="#{bookManager.books}" > 
-                <li> #{item.title} - #{item.author} - #{item.subject} </li> 
+            <ui:repeat var="item" value="#{bookManager.filteredBooks}" > 
+                <h:form>
+                    <li> #{item.title} - #{item.author} - #{item.subject} 
+                        <h:commandButton value="Delete" action="#{bookManager.remove}">
+                            <f:setPropertyActionListener target="#{bookManager.selectedBook}" value="#{item}" />
+                        </h:commandButton>
+                    </li> 
+                </h:form>
             </ui:repeat>
         </ol>
     </h:body>
