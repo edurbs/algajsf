@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Gestão de produtos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h1>Lista de livros</h1>
+        <h:form>
+            Título: <h:inputText value="#{bookManager.book.title}" /> <br/>
+            Autor: <h:inputText value="#{bookManager.book.author}" /><br/>
+            Assunto: <h:inputText value="#{bookManager.book.subject}" /><br/>
+            <h:commandButton value="Adicionar" action="#{bookManager.add}"/>
+        </h:form>
+        <ol>
+            <ui:repeat var="item" value="#{bookManager.books}" > 
+                <li> #{item.title} - #{item.author} - #{item.subject} </li> 
+            </ui:repeat>
+        </ol>
+    </h:body>
+</html>
